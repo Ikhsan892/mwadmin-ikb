@@ -57,7 +57,7 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const LogoCRM = styled("img")(({ theme }) => ({
+const LogoMW = styled("img")(({ theme }) => ({
   width: 100,
   height: "auto",
 }));
@@ -71,7 +71,7 @@ export const DrawerDesktop: React.FC<TDrawerDesktop> = ({
   return (
     <Drawer variant="permanent" open={openDesktop}>
       <DrawerHeader>
-        <LogoCRM src={"/vercel.svg"} alt={"Vercel"} />
+        <LogoMW src={"/mwlogo.png"} alt={"Makersware"} />
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === "rtl" ? (
             <ChevronRightIcon />

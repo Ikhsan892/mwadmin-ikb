@@ -1,6 +1,10 @@
+import rootReducer from "../reducers";
+
 interface PayloadRedux<T extends unknown> {
   type: string;
   data: T;
 }
 
-export { type PayloadRedux };
+type RootState  = ReturnType<typeof rootReducer>; 
+
+export { type PayloadRedux, type RootState };

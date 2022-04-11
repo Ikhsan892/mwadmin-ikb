@@ -1,15 +1,19 @@
-import React from "react";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import MailIcon from "@mui/icons-material/Mail";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
+import MailIcon from "@mui/icons-material/Mail";
+import MenuIcon from "@mui/icons-material/Menu";
+import NightlightIcon from '@mui/icons-material/Nightlight';
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Badge } from "@mui/material";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import { styled, useTheme } from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
+import React, { useCallback } from "react";
+import { useDispatch } from 'react-redux';
+import { darkMode } from "../action"; 
+import { useSelector } from "../utils/useTypedSelector";
 
 const drawerWidth = 250;
 
@@ -41,11 +45,21 @@ const CRMAppbar = styled(MuiAppBar, {
   }),
 }));
 
+
+
 export const AppBar: React.FC<IAppbarProps> = ({
   openDesktop,
-  handleDrawerOpen,
+  handleDrawerOpen, 
 }) => {
   const theme = useTheme();
+  const dispatch = useDispatch(); 
+  const { dark } = useSelector(state => state.dashboard)   
+
+  const handleClickDark : React.MouseEventHandler<HTMLButtonElement> | undefined  = useCallback((e) => {
+    dispatch(darkMode(!dark))        
+  },[dark])  
+
+
   return (
     <CRMAppbar
       position="fixed"
@@ -71,11 +85,12 @@ export const AppBar: React.FC<IAppbarProps> = ({
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { md: "flex" } }}>
           <IconButton
+            onClick={handleClickDark}
             size="large"
             aria-label="show 4 new mails"
             color="default"
           >
-            <Brightness4Icon />
+            {dark ? <NightlightIcon/>  : <Brightness4Icon />}
           </IconButton>
           <IconButton
             size="large"

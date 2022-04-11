@@ -1,4 +1,8 @@
-interface IDashboard {
+interface IDarkMode{
+  dark : boolean;
+}
+
+interface IDashboard extends IDarkMode {
   color: string;
   notification: number[];
 }
@@ -15,4 +19,4 @@ interface INavigationResponse {
   data?: TNavigationResponse[];
 }
 
-export { type IDashboard, type INavigationResponse, type TNavigationResponse };
+export { type IDashboard, type INavigationResponse, type TNavigationResponse, type IDarkMode }; 

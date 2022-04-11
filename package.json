@@ -1,5 +1,5 @@
 {
-  "name": "crmretail",
+  "name": "mwadmin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -20,6 +20,7 @@
     "react-dom": "18.0.0",
     "react-query": "^3.34.19",
     "react-redux": "^7.2.8",
+    "react-table": "^7.7.0",
     "redux": "^4.1.2",
     "tailwindcss-filters": "^3.0.0"
   },
