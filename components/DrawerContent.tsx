@@ -5,9 +5,10 @@ import MuiListItemIcon from "@mui/material/ListItemIcon";
 import MuiListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
-import { Badge, OutlinedInput, Tooltip } from "@mui/material";
+import { Badge, ListItemButton, OutlinedInput, Tooltip } from "@mui/material";
 import { CustomListItemButton, DrawerSubHeading } from ".";
 import { INavigationConfig, NavigationConfig } from "../navigationConfig";
+import { useRouter } from "next/router";
 
 type TDrawerContent = {
   open?: boolean;
@@ -36,6 +37,8 @@ const CustomBadge = styled(Badge)(({ theme }) => ({
 
 export const DrawerContent: React.FC<TDrawerContent> = ({ open }) => {
   const [config, setConfig] = useState<INavigationConfig[]>(NavigationConfig);
+  const router = useRouter();
+
   const onChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -44,7 +47,11 @@ export const DrawerContent: React.FC<TDrawerContent> = ({ open }) => {
     //   e.target.value,
     //   NavigationConfig
     // );
-    // setConfig();
+    // setConfig(value);
+  };
+
+  const changingRoute = (to: string): void => {
+    router.push(to);
   };
 
   return (
@@ -72,24 +79,47 @@ export const DrawerContent: React.FC<TDrawerContent> = ({ open }) => {
                   {data.label}
                 </DrawerSubHeading>
                 {data.children?.map((content, index) => (
-                  <ListItem key={index} disablePadding>
-                    <Tooltip title={content.name} placement="top-end">
-                      <CustomListItemButton open={open}>
-                        <CustomBadge
-                          color="primary"
-                          badgeContent={0}
-                          max={99}
-                          sx={{ display: open ? "none" : "block", right: 7 }}
-                        />
-                        <ListItemIcon>{content.icon}</ListItemIcon>
-                        <ListItemText primary={content.name} />
-                        <Badge
-                          color="primary"
-                          badgeContent={0}
-                          max={99}
-                          sx={{ display: open ? "block" : "none" }}
-                        />
-                      </CustomListItemButton>
+                  <ListItem
+                    key={index}
+                    disablePadding={true}
+                    onClick={() => changingRoute(content.route)}
+                  >
+                    <Tooltip
+                      title={content.name}
+                      placement="right"
+                      arrow={true}
+                    >
+                      <ListItemButton
+                        disableRipple={true}
+                        disableTouchRipple={true}
+                        disableGutters={true}
+                        sx={{
+                          paddingTop: 0,
+                          marginTop: 0,
+                          marginBottom: 0,
+                          paddingBottom: 0,
+                        }}
+                      >
+                        <CustomListItemButton
+                          open={open}
+                          selected={content.route === router.pathname}
+                        >
+                          <CustomBadge
+                            color="primary"
+                            badgeContent={0}
+                            max={99}
+                            sx={{ display: open ? "none" : "block", right: 7 }}
+                          />
+                          <ListItemIcon>{content.icon}</ListItemIcon>
+                          <ListItemText primary={content.name} />
+                          <Badge
+                            color="primary"
+                            badgeContent={0}
+                            max={99}
+                            sx={{ display: open ? "block" : "none" }}
+                          />
+                        </CustomListItemButton>
+                      </ListItemButton>
                     </Tooltip>
                   </ListItem>
                 ))}
@@ -97,24 +127,44 @@ export const DrawerContent: React.FC<TDrawerContent> = ({ open }) => {
             );
           } else {
             return data.children?.map((content, index) => (
-              <ListItem key={index} disablePadding>
-                <Tooltip title={content.name} placement="top-end">
-                  <CustomListItemButton open={open}>
-                    <CustomBadge
-                      color="primary"
-                      badgeContent={1000}
-                      max={99}
-                      sx={{ display: open ? "none" : "block", right: 7 }}
-                    />
-                    <ListItemIcon>{content.icon}</ListItemIcon>
-                    <ListItemText primary={content.name} />
-                    <Badge
-                      color="primary"
-                      badgeContent={10}
-                      max={99}
-                      sx={{ display: open ? "block" : "none" }}
-                    />
-                  </CustomListItemButton>
+              <ListItem
+                key={index}
+                disablePadding={true}
+                onClick={() => changingRoute(content.route)}
+              >
+                <Tooltip title={content.name} placement="right" arrow={true}>
+                  <ListItemButton
+                    disableRipple={true}
+                    disableTouchRipple={true}
+                    disableGutters={true}
+                    sx={{
+                      paddingTop: 0,
+                      marginTop: 0,
+                      marginBottom: 0,
+                      paddingBottom: 0,
+                    }}
+                  >
+                    <CustomListItemButton
+                      onClick={() => changingRoute(content.route)}
+                      open={open}
+                      selected={content.route === router.pathname}
+                    >
+                      <CustomBadge
+                        color="primary"
+                        badgeContent={1000}
+                        max={99}
+                        sx={{ display: open ? "none" : "block", right: 7 }}
+                      />
+                      <ListItemIcon>{content.icon}</ListItemIcon>
+                      <ListItemText primary={content.name} />
+                      <Badge
+                        color="primary"
+                        badgeContent={10}
+                        max={99}
+                        sx={{ display: open ? "block" : "none" }}
+                      />
+                    </CustomListItemButton>
+                  </ListItemButton>
                 </Tooltip>
               </ListItem>
             ));

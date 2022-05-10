@@ -1,4 +1,6 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import ViewListIcon from "@mui/icons-material/ViewList";
 
 export interface INavigationConfigChildren {
   route: string;
@@ -16,7 +18,7 @@ export const NavigationConfig: INavigationConfig[] = [
     label: null,
     children: [
       {
-        route: "/overview",
+        route: "/",
         name: "Overview",
         icon: <DashboardIcon />,
       },
@@ -94,6 +96,21 @@ export const NavigationConfig: INavigationConfig[] = [
         route: "/pelanggan",
         name: "Pelanggan",
         icon: <DashboardIcon />,
+      },
+    ],
+  },
+  {
+    label: "Form",
+    children: [
+      {
+        route: "/form/editor",
+        name: "Form Editor",
+        icon: <DragIndicatorIcon />,
+      },
+      {
+        route: "/form",
+        name: "List Form",
+        icon: <ViewListIcon />,
       },
     ],
   },

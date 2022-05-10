@@ -1,14 +1,22 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import { ButtonBaseProps, ListItemButton } from "@mui/material";
+import {
+  ExtendButtonBase,
+  ListItemButton,
+  ListItemButtonProps,
+  ListItemButtonTypeMap,
+} from "@mui/material";
 
-interface ICustomListItemButton extends ButtonBaseProps {
+interface ICustomListItemButton extends ListItemButtonProps {
   open?: boolean;
   selected?: boolean;
+  active?: boolean;
 }
 
 const SListItemButton = styled(ListItemButton)<ICustomListItemButton>(
   ({ theme, selected, open }) => ({
+    paddingTop: 2,
+    paddingBottom: 2,
     ...(selected && {
       borderLeft: `3px solid blue`,
       overflow: "hidden",
@@ -31,6 +39,7 @@ const SListItemButton = styled(ListItemButton)<ICustomListItemButton>(
     "& .MuiListItemText-primary": {
       fontWeight: 500,
       overflow: "hidden",
+      fontSize: 14,
       textOverflow: "ellipsis",
     },
   })

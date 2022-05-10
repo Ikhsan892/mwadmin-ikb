@@ -2,7 +2,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
-import NightlightIcon from '@mui/icons-material/Nightlight';
+import NightlightIcon from "@mui/icons-material/Nightlight";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Badge } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -11,20 +11,20 @@ import IconButton from "@mui/material/IconButton";
 import { styled, useTheme } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import React, { useCallback } from "react";
-import { useDispatch } from 'react-redux';
-import { darkMode } from "../action"; 
+import { useDispatch } from "react-redux";
+import { darkMode } from "../action";
 import { useSelector } from "../utils/useTypedSelector";
 
 const drawerWidth = 250;
 
 interface IAppbarProps extends MuiAppBarProps {
-  openDesktop: boolean;
+  opendesktop: boolean;
   handleDrawerOpen?: () => void;
 }
 
-const CRMAppbar = styled(MuiAppBar, {
+const MWAppbar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
-})<IAppbarProps>(({ theme, openDesktop }) => ({
+})<IAppbarProps>(({ theme, opendesktop }) => ({
   zIndex: theme.zIndex.drawer + 1,
   backgroundColor: theme.palette.background.default,
   boxShadow: "none",
@@ -33,7 +33,7 @@ const CRMAppbar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  ...(openDesktop && {
+  ...(opendesktop && {
     [theme.breakpoints.up("sm")]: {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
@@ -45,28 +45,30 @@ const CRMAppbar = styled(MuiAppBar, {
   }),
 }));
 
-
-
 export const AppBar: React.FC<IAppbarProps> = ({
-  openDesktop,
-  handleDrawerOpen, 
+  opendesktop,
+  handleDrawerOpen,
 }) => {
   const theme = useTheme();
-  const dispatch = useDispatch(); 
-  const { dark } = useSelector(state => state.dashboard)   
+  const dispatch = useDispatch();
+  const { dark } = useSelector((state) => state.dashboard);
 
-  const handleClickDark : React.MouseEventHandler<HTMLButtonElement> | undefined  = useCallback((e) => {
-    dispatch(darkMode(!dark))        
-  },[dark])  
-
+  const handleClickDark:
+    | React.MouseEventHandler<HTMLButtonElement>
+    | undefined = useCallback(
+    (e) => {
+      dispatch(darkMode(!dark));
+    },
+    [dark]
+  );
 
   return (
-    <CRMAppbar
+    <MWAppbar
       position="fixed"
-      openDesktop={openDesktop}
+      opendesktop={opendesktop}
       className={"font-montserrat"}
     >
-      <Toolbar>
+      <Toolbar color={"default"}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -76,7 +78,7 @@ export const AppBar: React.FC<IAppbarProps> = ({
             marginRight: "36px",
             color: theme.palette.text.primary,
             [theme.breakpoints.up("sm")]: {
-              ...(openDesktop && { display: "none" }),
+              ...(opendesktop && { display: "none" }),
             },
           }}
         >
@@ -90,7 +92,7 @@ export const AppBar: React.FC<IAppbarProps> = ({
             aria-label="show 4 new mails"
             color="default"
           >
-            {dark ? <NightlightIcon/>  : <Brightness4Icon />}
+            {dark ? <NightlightIcon /> : <Brightness4Icon />}
           </IconButton>
           <IconButton
             size="large"
@@ -121,6 +123,6 @@ export const AppBar: React.FC<IAppbarProps> = ({
           </IconButton>
         </Box>
       </Toolbar>
-    </CRMAppbar>
+    </MWAppbar>
   );
 };

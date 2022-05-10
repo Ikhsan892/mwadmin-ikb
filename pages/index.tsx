@@ -1,14 +1,8 @@
 import Layout from "../components/Layout";
-import { ReactElement, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { darkMode } from "../action";
+import { ReactElement } from "react";
 
 function Home() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(darkMode(true));
-  }, []);
-  return <div>Home A a</div>;
+  return <div>Home</div>;
 }
 
 Home.getLayout = function getLayout(page: ReactElement) {
